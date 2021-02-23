@@ -11,10 +11,10 @@ def frc_639_mappings():
     while True:
         events = get_gamepad()
         for event in events:
-            if(event.ev_type == "Absolute" and event.code == "ABS_Y" and event.state > 0):
-                return("indexerIntaking")
-            if (event.ev_type == "Absolute" and event.code == "ABS_Y" and event.state < 0):
-                return("indexerOutputting")
+            if(event.ev_type == "Absolute" and event.code == "ABS_Z" and event.state > 0):
+                return("acquisitionRight")
+            if (event.ev_type == "Absolute" and event.code == "ABS_RZ" and event.state > 0):
+                return("acquisitionBoth")
 
             if(event.ev_type == "Key" and event.code == "BTN_WEST" and event.state == 1):
                 x = True
@@ -41,8 +41,8 @@ def frc_639_mappings():
                 a = False
 
 randTimes = []
-actionArr = ["indexerIntaking", "indexerOutputting", "acquisitionToggled", "shootMaxSpeed", "ShooterPistonsToggled", "ShootNormalSpeed"]
-trials = 5;
+actionArr = ["acquisitionBoth","acquisitionRight","acquisitionToggled", "shootMaxSpeed", "ShooterPistonsToggled", "ShootNormalSpeed"]
+trials = 15;
 
 for i in range(trials):
     randTimes.append(random.randint(1,3))
@@ -62,10 +62,11 @@ while True:
         times.append(ellapsed)
         print(ellapsed)
     else:
+        i = i-1
         print("misinput")
 
     if i == trials - 1:
         print("Finished")
-        print("-----AVERAGE TIME-----" + average(times))
+        print("-----AVERAGE TIME-----" + str(average(times)))
         break;
     i +=1
